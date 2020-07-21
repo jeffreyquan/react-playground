@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Results } from "./Results";
+import { Item } from "./types";
 
 export const Search = () => {
   const [query, setQuery] = useState("");
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState<Item[]>([]);
 
   console.log("SEARCH rendering");
 
-  const fetchBook = async (bookTitle) => {
+  const fetchBook = async (bookTitle: string) => {
     const response = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=title:${bookTitle}`
     );
@@ -16,12 +17,12 @@ export const Search = () => {
     setResult([...data.items]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
     fetchBook(query);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setQuery(value);
   };

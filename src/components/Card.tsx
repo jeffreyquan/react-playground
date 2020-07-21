@@ -1,6 +1,7 @@
 import React from "react";
+import { Item } from "./types";
 
-export const Card = ({ item }) => {
+export const Card: React.FC<Item> = ({ item }) => {
   const { title, imageLinks } = item.volumeInfo;
   const image = imageLinks.thumbnail;
 
