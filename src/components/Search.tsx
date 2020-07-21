@@ -1,18 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Results } from "./Results";
+import { SearchBar } from "./SearchBar";
+import { Button } from "./Button";
 import { Item } from "./types";
 
 export const Search = () => {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<Item[]>([]);
 
-  console.log("SEARCH rendering");
+  console.log("SEARCH RENDERING");
 
   // useRef used to reference the button element which allows access to the click method
   const buttonRef = useRef<HTMLButtonElement | null>(null);
-
-  useEffect(() => {});
 
   const fetchBook = async (bookTitle: string) => {
     const response = await axios.get(
@@ -44,10 +44,8 @@ export const Search = () => {
         Custom Search Button using ref (button)
       </div>
       <form onSubmit={handleSubmit}>
-        <input name="query" value={query} onChange={handleChange} />
-        <button type="submit" ref={buttonRef}>
-          Submit
-        </button>
+        <SearchBar name="query" handleChange={handleChange} query={query} />
+        <Button reference={buttonRef} />
       </form>
       <hr />
       {result.length > 0 && <Results items={result} />}
